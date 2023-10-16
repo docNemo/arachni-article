@@ -1,4 +1,4 @@
-# arachni-article
+# arachni-articles
 
 ## Деплой базы данных
 

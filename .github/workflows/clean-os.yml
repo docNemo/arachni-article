@@ -6,7 +6,7 @@ on:
     types: [ closed ]
 
 env:
-  APPLICATION_NAME: "arachni-article"
+  APPLICATION_NAME: "arachni-articles"
 
 jobs:
   clean-os:

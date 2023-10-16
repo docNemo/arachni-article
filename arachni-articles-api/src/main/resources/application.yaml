@@ -15,8 +15,6 @@ springdoc:
     path: '/swagger-ui'
 
 spring:
-  profiles:
-    active: stand
   datasource:
     password: ${database.password}
     driver-class-name: org.postgresql.Driver

@@ -9,18 +9,17 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>ru.mai.arachni</groupId>
-    <artifactId>arachni-back</artifactId>
+    <groupId>ru.mai.arachni.article</groupId>
+    <artifactId>arachni-article</artifactId>
     <version>0.1.0</version>
     <packaging>pom</packaging>
 
-    <name>arachni-back</name>
+    <name>arachni-article</name>
 
     <modules>
-        <module>arachni-back-app</module>
-        <module>arachni-back-core</module>
-        <module>arachni-back-article</module>
-        <module>arachni-back-db</module>
+        <module>arachni-article-core</module>
+        <module>arachni-article-api</module>
+        <module>arachni-article-db</module>
     </modules>
 
     <properties>

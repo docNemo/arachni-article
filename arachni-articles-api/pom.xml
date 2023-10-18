@@ -51,7 +51,7 @@
         <dependency>
             <groupId>ru.mai.arachni.articles</groupId>
             <artifactId>arachni-articles-core</artifactId>
-            <version>0.1.0</version>
+            <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
 
@@ -64,10 +64,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
+
         <dependency>
             <groupId>ru.mai.arachni.articles</groupId>
-            <artifactId>arachni-articles-core</artifactId>
-            <version>0.1.0</version>
+            <artifactId>arachni-articles-object-storage</artifactId>
+            <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

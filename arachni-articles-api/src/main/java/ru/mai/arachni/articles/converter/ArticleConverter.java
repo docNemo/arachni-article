@@ -19,7 +19,7 @@ public class ArticleConverter {
                         .collect(Collectors.toList()),
                 article.getCreator().getCreator(),
                 article.getCreationDate(),
-                article.getText()
+                article.getFileName()
         );
     }
 

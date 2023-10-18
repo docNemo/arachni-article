@@ -48,6 +48,6 @@ public class Article {
     @Column(name = "creation_date")
     private ZonedDateTime creationDate;
 
-    @Column(name = "text")
-    private String text;
+    @Column(name = "file_name")
+    private String fileName;
 }

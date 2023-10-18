@@ -3,6 +3,8 @@ package ru.mai.arachni.articles.service;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
 import ru.mai.arachni.articles.converter.ArticleConverter;
+import ru.mai.arachni.articles.core.domain.TempText;
+import ru.mai.arachni.articles.core.repository.TempTextRepository;
 import ru.mai.arachni.articles.dto.request.article.ArticleListRequest;
 import ru.mai.arachni.articles.dto.request.article.CreateArticleRequest;
 import ru.mai.arachni.articles.dto.request.article.UpdateArticleRequest;
@@ -29,6 +31,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -37,6 +40,7 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
     private final CreatorRepository creatorRepository;
     private final CategoryRepository categoryRepository;
+    private final TempTextRepository tempTextRepository;
 
     void setCreatorToArticle(final Article article, final String creatorName) {
         Optional<Creator> existCreator = creatorRepository.findOneCreatorsByCreator(creatorName);
@@ -86,9 +90,13 @@ public class ArticleService {
         Article article = articleOptional.get();
         article.setTitle(updateArticleRequest.getTitle());
         setCategoriesToArticle(article, updateArticleRequest.getCategories());
-        article.setText(updateArticleRequest.getText());
+
+        TempText tempText = new TempText();
+        tempText.setFileName(article.getFileName());
+        tempText.setText(updateArticleRequest.getText());
 
         Article recordedArticle = articleRepository.save(article);
+        tempTextRepository.save(tempText);
 
         return articleConverter.convertArticleToArticleResponse(recordedArticle);
     }
@@ -185,11 +193,17 @@ public class ArticleService {
         setCategoriesToArticle(article, createArticleRequest.getCategories());
         setCreatorToArticle(article, createArticleRequest.getCreator());
 
-        article.setText(createArticleRequest.getText());
+        String fileName = UUID.randomUUID().toString();
+        article.setFileName(fileName);
         article.setCreationDate(ZonedDateTime.now());
+
+        TempText tempText = new TempText();
+        tempText.setFileName(fileName);
+        tempText.setText(createArticleRequest.getText());
 
         Article recordedArticle = articleRepository.save(article);
 
+        tempTextRepository.save(tempText);
         return articleConverter.convertArticleToArticleResponse(recordedArticle);
     }
 }

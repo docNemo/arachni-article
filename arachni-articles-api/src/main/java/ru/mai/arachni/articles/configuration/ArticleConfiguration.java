@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import ru.mai.arachni.articles.core.repository.ArticleRepository;
 import ru.mai.arachni.articles.core.repository.CategoryRepository;
 import ru.mai.arachni.articles.core.repository.CreatorRepository;
+import ru.mai.arachni.articles.core.repository.TempTextRepository;
 import ru.mai.arachni.articles.service.ArticleService;
 
 @Configuration
@@ -16,13 +17,15 @@ public class ArticleConfiguration {
             ArticleRepository articleRepository,
             CreatorRepository creatorRepository,
             CategoryRepository categoryRepository,
+            TempTextRepository tempTextRepository,
             ArticleConverter articleConverter
     ) {
         return new ArticleService(
                 articleConverter,
                 articleRepository,
                 creatorRepository,
-                categoryRepository
+                categoryRepository,
+                tempTextRepository
         );
     }
 

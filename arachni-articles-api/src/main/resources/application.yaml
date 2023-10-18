@@ -22,3 +22,8 @@ spring:
     username: app_tuz
   liquibase:
     enabled: 'false'
+
+objectstorage:
+  host: http://arachni-object-storage-devslaves-971395.apps.os-lab-3.neo
+  uploadUrl: ${objectstorage.host}/upload
+  downloadUrl: ${objectstorage.host}/download

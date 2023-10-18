@@ -19,5 +19,5 @@ public class ArticleResponse {
 
     private ZonedDateTime creationDate;
 
-    private String text;
+    private String fileName;
 }

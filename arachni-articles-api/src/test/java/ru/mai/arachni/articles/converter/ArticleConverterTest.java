@@ -55,6 +55,7 @@ public class ArticleConverterTest {
                 strCategories,
                 strCreator,
                 dateTime,
+                fileName,
                 text
         );
 

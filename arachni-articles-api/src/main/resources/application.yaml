@@ -23,7 +23,6 @@ spring:
   liquibase:
     enabled: 'false'
 
-objectstorage:
+object-storage:
   host: http://arachni-object-storage-devslaves-971395:8080/api
-  uploadUrl: ${objectstorage.host}/upload
-  downloadUrl: ${objectstorage.host}/download
+  objectsUrl: ${object-storage.host}/objects

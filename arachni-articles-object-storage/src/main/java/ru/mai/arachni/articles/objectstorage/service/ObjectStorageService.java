@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import ru.mai.arachni.articles.core.domain.TempText;
 import ru.mai.arachni.articles.core.repository.TempTextRepository;
+import ru.mai.arachni.articles.objectstorage.dto.response.UploadFileResponse;
 import ru.mai.arachni.articles.objectstorage.provider.ObjectStorageProvider;
 
 @Slf4j
@@ -36,5 +37,13 @@ public class ObjectStorageService {
 
     public String getArticleText(String fileName) {
         return objectStorageProvider.downloadArticleText(fileName);
+    }
+
+    public UploadFileResponse saveArticleText(String fileName, String text) {
+        return objectStorageProvider.uploadArticleText(fileName, text);
+    }
+
+    public void deleteArticleText(String fileName) {
+        objectStorageProvider.deleteArticleText(fileName);
     }
 }

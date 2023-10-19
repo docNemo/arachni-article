@@ -7,8 +7,7 @@ import ru.mai.arachni.articles.objectstorage.dto.response.UploadFileResponse;
 
 @RequiredArgsConstructor
 public class ObjectStorageProvider {
-    private final String objectStorageUploadUrl;
-    private final String objectStorageDownloadUrl;
+    private final String objectsUrl;
 
     private final RestTemplate restTemplate;
 
@@ -17,13 +16,17 @@ public class ObjectStorageProvider {
             String text
     ) {
         return restTemplate.postForObject(
-                objectStorageUploadUrl,
+                objectsUrl,
                 new UploadFileRequest(fileName, text),
                 UploadFileResponse.class
         );
     }
 
     public String downloadArticleText(String fileName) {
-        return restTemplate.getForObject(objectStorageDownloadUrl + "/" + fileName, String.class);
+        return restTemplate.getForObject(objectsUrl + "/" + fileName, String.class);
+    }
+
+    public void deleteArticleText(String fileName) {
+        restTemplate.delete(objectsUrl + "/" + fileName);
     }
 }

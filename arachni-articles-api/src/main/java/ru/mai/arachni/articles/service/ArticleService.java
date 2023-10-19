@@ -1,10 +1,10 @@
 package ru.mai.arachni.articles.service;
 
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.util.StringUtils;
 import ru.mai.arachni.articles.converter.ArticleConverter;
-import ru.mai.arachni.articles.core.domain.TempText;
-import ru.mai.arachni.articles.core.repository.TempTextRepository;
 import ru.mai.arachni.articles.dto.request.article.ArticleListRequest;
 import ru.mai.arachni.articles.dto.request.article.CreateArticleRequest;
 import ru.mai.arachni.articles.dto.request.article.UpdateArticleRequest;
@@ -41,7 +41,6 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
     private final CreatorRepository creatorRepository;
     private final CategoryRepository categoryRepository;
-    private final TempTextRepository tempTextRepository;
     private final ObjectStorageService objectStorageService;
 
     void setCreatorToArticle(final Article article, final String creatorName) {
@@ -93,16 +92,18 @@ public class ArticleService {
         article.setTitle(updateArticleRequest.getTitle());
         setCategoriesToArticle(article, updateArticleRequest.getCategories());
 
-        TempText tempText = new TempText();
-        tempText.setFileName(article.getFileName());
-        tempText.setText(updateArticleRequest.getText());
-
         Article recordedArticle = articleRepository.save(article);
-        TempText recordedText = tempTextRepository.save(tempText);
+
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+            @Override
+            public void beforeCommit(boolean readOnly) {
+                objectStorageService.saveArticleText(article.getFileName(), updateArticleRequest.getText());
+            }
+        });
 
         return articleConverter.convertArticleToArticleResponse(
                 recordedArticle,
-                recordedText.getText()
+                updateArticleRequest.getText()
         );
     }
 
@@ -124,7 +125,22 @@ public class ArticleService {
 
     @Transactional
     public void deleteArticle(final Long idArticle) {
+        Article article = articleRepository
+                .findById(idArticle)
+                .orElseThrow(
+                        () -> new ArachniException(
+                                ArachniError.ARTICLE_NOT_FOUND,
+                                "id_article: %s".formatted(idArticle)
+                        )
+                );
         articleRepository.deleteById(idArticle);
+
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+            @Override
+            public void beforeCommit(boolean readOnly) {
+                objectStorageService.deleteArticleText(article.getFileName());
+            }
+        });
     }
 
     @Transactional(readOnly = true)
@@ -206,16 +222,18 @@ public class ArticleService {
         article.setFileName(fileName);
         article.setCreationDate(ZonedDateTime.now());
 
-        TempText tempText = new TempText();
-        tempText.setFileName(fileName);
-        tempText.setText(createArticleRequest.getText());
-
         Article recordedArticle = articleRepository.save(article);
-        TempText recordedText = tempTextRepository.save(tempText);
+
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+            @Override
+            public void beforeCommit(boolean readOnly) {
+                objectStorageService.saveArticleText(fileName, createArticleRequest.getText());
+            }
+        });
 
         return articleConverter.convertArticleToArticleResponse(
                 recordedArticle,
-                recordedText.getText()
+                createArticleRequest.getText()
         );
     }
 }

@@ -16,13 +16,11 @@ public class ObjectStorageConfiguration {
 
     @Bean
     public ObjectStorageProvider objectStorageProvider(
-            @Value("${objectstorage.uploadUrl}") String objectStorageUploadUrl,
-            @Value("${objectstorage.downloadUrl}")String objectStorageDownloadUrl,
+            @Value("${object-storage.objectsUrl}") String objectStorageUrl,
             RestTemplate restTemplate
     ) {
         return new ObjectStorageProvider(
-                objectStorageUploadUrl,
-                objectStorageDownloadUrl,
+                objectStorageUrl,
                 restTemplate
         );
     }

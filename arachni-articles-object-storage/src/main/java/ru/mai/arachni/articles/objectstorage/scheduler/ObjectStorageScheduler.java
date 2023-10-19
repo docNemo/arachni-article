@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class ObjectStorageScheduler {
     private final ObjectStorageService objectStorageService;
 
-    @Scheduled(fixedDelay = 10, timeUnit = TimeUnit.MINUTES)
+//    @Scheduled(fixedDelay = 10, timeUnit = TimeUnit.MINUTES)
     public void uploadAllTempText() {
         LOGGER.info("start transfer article's texts");
         objectStorageService.uploadAllTempText();

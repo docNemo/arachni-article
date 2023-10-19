@@ -30,7 +30,7 @@ public class ObjectStorageService {
                         tempTextRepository.deleteById(tempText.getId());
                     }
             );
-            LOGGER.info("transfer {} texts", page.getSize());
+            LOGGER.info("transfer {} texts", page.getNumberOfElements());
         } while (page.hasNext());
     }
 

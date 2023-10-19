@@ -24,6 +24,6 @@ spring:
     enabled: 'false'
 
 objectstorage:
-  host: http://arachni-object-storage-devslaves-971395.apps.os-lab-3.neo
+  host: http://arachni-object-storage-devslaves-971395:8080/api
   uploadUrl: ${objectstorage.host}/upload
   downloadUrl: ${objectstorage.host}/download

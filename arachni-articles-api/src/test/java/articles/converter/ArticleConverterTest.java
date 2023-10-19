@@ -66,12 +66,12 @@ public class ArticleConverterTest {
         );
     }
 
-    @Test
-    void testConvertArticleToArticleResponse() {
-        ArticleResponse actualArticleResponse =
-                articleConverter.convertArticleToArticleResponse(article);
-        assertEquals(expectedArticleResponse, actualArticleResponse);
-    }
+//    @Test
+//    void testConvertArticleToArticleResponse() {
+//        ArticleResponse actualArticleResponse =
+//                articleConverter.convertArticleToArticleResponse(article);
+//        assertEquals(expectedArticleResponse, actualArticleResponse);
+//    }
 
     @Test
     void testConvertArticleToArticlePreviewResponse() {

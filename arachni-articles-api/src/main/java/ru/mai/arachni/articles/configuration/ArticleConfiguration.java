@@ -7,6 +7,7 @@ import ru.mai.arachni.articles.core.repository.ArticleRepository;
 import ru.mai.arachni.articles.core.repository.CategoryRepository;
 import ru.mai.arachni.articles.core.repository.CreatorRepository;
 import ru.mai.arachni.articles.core.repository.TempTextRepository;
+import ru.mai.arachni.articles.objectstorage.service.ObjectStorageService;
 import ru.mai.arachni.articles.service.ArticleService;
 
 @Configuration
@@ -18,14 +19,16 @@ public class ArticleConfiguration {
             CreatorRepository creatorRepository,
             CategoryRepository categoryRepository,
             TempTextRepository tempTextRepository,
-            ArticleConverter articleConverter
+            ArticleConverter articleConverter,
+            ObjectStorageService objectStorageService
     ) {
         return new ArticleService(
                 articleConverter,
                 articleRepository,
                 creatorRepository,
                 categoryRepository,
-                tempTextRepository
+                tempTextRepository,
+                objectStorageService
         );
     }
 

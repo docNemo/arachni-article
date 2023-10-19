@@ -25,6 +25,7 @@ import ru.mai.arachni.articles.core.repository.CategoryRepository;
 import ru.mai.arachni.articles.core.repository.CreatorRepository;
 import ru.mai.arachni.articles.core.repository.pagerequest.OffsetBasedPageRequest;
 import ru.mai.arachni.articles.core.specification.ArticleSpecification;
+import ru.mai.arachni.articles.objectstorage.service.ObjectStorageService;
 
 import java.time.ZonedDateTime;
 import java.util.HashSet;
@@ -41,6 +42,7 @@ public class ArticleService {
     private final CreatorRepository creatorRepository;
     private final CategoryRepository categoryRepository;
     private final TempTextRepository tempTextRepository;
+    private final ObjectStorageService objectStorageService;
 
     void setCreatorToArticle(final Article article, final String creatorName) {
         Optional<Creator> existCreator = creatorRepository.findOneCreatorsByCreator(creatorName);
@@ -96,21 +98,28 @@ public class ArticleService {
         tempText.setText(updateArticleRequest.getText());
 
         Article recordedArticle = articleRepository.save(article);
-        tempTextRepository.save(tempText);
+        TempText recordedText = tempTextRepository.save(tempText);
 
-        return articleConverter.convertArticleToArticleResponse(recordedArticle);
+        return articleConverter.convertArticleToArticleResponse(
+                recordedArticle,
+                recordedText.getText()
+        );
     }
 
     @Transactional(readOnly = true)
     public ArticleResponse getArticle(final Long idArticle) {
-        Optional<Article> article = articleRepository.findById(idArticle);
-        if (article.isEmpty()) {
-            throw new ArachniException(
-                    ArachniError.ARTICLE_NOT_FOUND,
-                    "id_article: %s".formatted(idArticle)
-            );
-        }
-        return articleConverter.convertArticleToArticleResponse(article.get());
+        Optional<Article> articleOpt = articleRepository.findById(idArticle);
+        Article article = articleOpt.orElseThrow(
+                () -> new ArachniException(
+                        ArachniError.ARTICLE_NOT_FOUND,
+                        "id_article: %s".formatted(idArticle)
+                )
+        );
+        String text = objectStorageService.getArticleText(article.getFileName());
+        return articleConverter.convertArticleToArticleResponse(
+                article,
+                text
+        );
     }
 
     @Transactional
@@ -202,8 +211,11 @@ public class ArticleService {
         tempText.setText(createArticleRequest.getText());
 
         Article recordedArticle = articleRepository.save(article);
+        TempText recordedText = tempTextRepository.save(tempText);
 
-        tempTextRepository.save(tempText);
-        return articleConverter.convertArticleToArticleResponse(recordedArticle);
+        return articleConverter.convertArticleToArticleResponse(
+                recordedArticle,
+                recordedText.getText()
+        );
     }
 }

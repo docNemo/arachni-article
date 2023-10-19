@@ -8,7 +8,7 @@ import ru.mai.arachni.articles.core.domain.Category;
 import java.util.stream.Collectors;
 
 public class ArticleConverter {
-    public ArticleResponse convertArticleToArticleResponse(Article article) {
+    public ArticleResponse convertArticleToArticleResponse(Article article, String text) {
         return new ArticleResponse(
                 article.getIdArticle(),
                 article.getTitle(),
@@ -19,7 +19,7 @@ public class ArticleConverter {
                         .collect(Collectors.toList()),
                 article.getCreator().getCreator(),
                 article.getCreationDate(),
-                article.getFileName()
+                text
         );
     }
 

@@ -33,4 +33,8 @@ public class ObjectStorageService {
             LOGGER.info("transfer {} texts", page.getSize());
         } while (page.hasNext());
     }
+
+    public String getArticleText(String fileName) {
+        return objectStorageProvider.downloadArticleText(fileName);
+    }
 }

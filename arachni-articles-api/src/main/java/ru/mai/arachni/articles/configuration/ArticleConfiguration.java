@@ -27,7 +27,6 @@ public class ArticleConfiguration {
                 articleRepository,
                 creatorRepository,
                 categoryRepository,
-                tempTextRepository,
                 objectStorageService
         );
     }

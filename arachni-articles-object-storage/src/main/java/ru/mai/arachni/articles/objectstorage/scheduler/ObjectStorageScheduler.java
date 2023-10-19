@@ -2,10 +2,7 @@ package ru.mai.arachni.articles.objectstorage.scheduler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Scheduled;
 import ru.mai.arachni.articles.objectstorage.service.ObjectStorageService;
-
-import java.util.concurrent.TimeUnit;
 @Slf4j
 @RequiredArgsConstructor
 public class ObjectStorageScheduler {

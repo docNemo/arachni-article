@@ -15,6 +15,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import ru.mai.arachni.articles.exception.ArachniError;
 import ru.mai.arachni.articles.exception.ArachniErrorRepresentation;
 import ru.mai.arachni.articles.exception.ArachniException;
+import ru.mai.arachni.articles.objectstorage.exception.ArachniObjectStorageException;
 
 import java.util.stream.Collectors;
 
@@ -140,6 +141,22 @@ public class GlobalRuntimeExceptionHandler {
     @ExceptionHandler(ArachniException.class)
     public @ResponseBody ResponseEntity<ArachniErrorRepresentation> handleArachniException(
             final ArachniException e
+    ) {
+        LOGGER.error("Handling: ", e);
+
+        return ResponseEntity
+                .status(e.getError().getStatusCode())
+                .body(
+                        new ArachniErrorRepresentation(
+                                e.getError().name(),
+                                e.getError().getErrorMessage()
+                        )
+                );
+    }
+
+    @ExceptionHandler(ArachniObjectStorageException.class)
+    public @ResponseBody ResponseEntity<ArachniErrorRepresentation> handleArachniObjectStorageException(
+            final ArachniObjectStorageException e
     ) {
         LOGGER.error("Handling: ", e);
 

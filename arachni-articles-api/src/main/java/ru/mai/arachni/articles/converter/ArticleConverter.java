@@ -33,7 +33,8 @@ public class ArticleConverter {
                         .map(Category::getCategory)
                         .collect(Collectors.toList()),
                 article.getCreator().getCreator(),
-                article.getCreationDate()
+                article.getCreationDate(),
+                article.getFileName()
         );
     }
 }

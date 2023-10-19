@@ -29,6 +29,7 @@ public class ArticleConverterTest {
         final List<Long> idCategories = List.of(0L, 1L);
         final List<String> strCategories = List.of("Категория 1", "Категория 2");
         final ZonedDateTime dateTime = ZonedDateTime.now();
+        final String fileName = "файлик";
 
         articleConverter = new ArticleConverter();
 
@@ -45,7 +46,7 @@ public class ArticleConverterTest {
                 categories,
                 creator,
                 dateTime,
-                text
+                fileName
         );
 
         expectedArticleResponse = new ArticleResponse(
@@ -62,16 +63,17 @@ public class ArticleConverterTest {
                 title,
                 strCategories,
                 strCreator,
-                dateTime
+                dateTime,
+                fileName
         );
     }
 
-//    @Test
-//    void testConvertArticleToArticleResponse() {
-//        ArticleResponse actualArticleResponse =
-//                articleConverter.convertArticleToArticleResponse(article);
-//        assertEquals(expectedArticleResponse, actualArticleResponse);
-//    }
+    @Test
+    void testConvertArticleToArticleResponse() {
+        ArticleResponse actualArticleResponse =
+                articleConverter.convertArticleToArticleResponse(article, expectedArticleResponse.getText());
+        assertEquals(expectedArticleResponse, actualArticleResponse);
+    }
 
     @Test
     void testConvertArticleToArticlePreviewResponse() {

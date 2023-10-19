@@ -14,4 +14,5 @@ public class ArticlePreviewResponse {
     private List<String> categories;
     private String creator;
     private ZonedDateTime creationDate;
+    private String fileName;
 }

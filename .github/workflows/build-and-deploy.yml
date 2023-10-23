@@ -107,10 +107,10 @@ jobs:
         id: prepare-image-name
         uses: ASzc/change-string-case-action@v5
         with:
-          string: ${{ env.IMAGE_NAME }}
+          string: ${{ env.IMAGE_NAME_WIHT_VERSION }}
 
       - name: Prepare image name
-        run: echo "IMAGE_NAME=${{ steps.prepare-image-name.outputs.lowercase }}" >> $GITHUB_ENV
+        run: echo "IMAGE_NAME_WIHT_VERSION=${{ steps.prepare-image-name.outputs.lowercase }}" >> $GITHUB_ENV
 
       - name: Log into registry ${{ env.REGISTRY }}
         run: docker login ${{ env.REGISTRY }} --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }}

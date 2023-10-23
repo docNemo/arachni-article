@@ -53,11 +53,13 @@ jobs:
           separator: "/"
           maxsplit: -1
 
-      - name: Prepare tags
-        id: meta
+      - name: Prepare version
         run: |
-          echo "::set-output name=version::${{ steps.branch.outputs._1 || steps.branch.outputs._0 }}"
-          echo "::set-output name=tags::${{ env.IMAGE_NAME }}:${{ steps.branch.outputs._1 || steps.branch.outputs._0 }}"
+          echo "VERSION=${{ steps.branch.outputs._1 || steps.branch.outputs._0 }}" >> $GITHUB_ENV
+
+      - name: Prepare IMAGE_NAME_WIHT_VERSION
+        run: |
+          echo "IMAGE_NAME_WIHT_VERSION=${{ env.IMAGE_NAME }}:${{ env.VERSION }}" >> $GITHUB_ENV
 
       - name: Set Dev env
         if: env.BRANCH == 'develop' || startsWith(env.BRANCH, 'feature')
@@ -116,9 +118,9 @@ jobs:
       - name: Build and push Docker image
         id: build-and-push
         run: |
-          docker build --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} . -f ${{ env.DOCKERFILE }}
-          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          clear_sha=$(docker images --digests | grep ${{ steps.meta.outputs.version }} | awk '{print $3}')
+          docker build --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_WIHT_VERSION }} . -f ${{ env.DOCKERFILE }}
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_WIHT_VERSION }}
+          clear_sha=$(docker images --digests | grep ${{ env.VERSION }} | awk '{print $3}')
           echo "IMAGE_SHA=$clear_sha" >> $GITHUB_ENV
 
       # DEPLOY

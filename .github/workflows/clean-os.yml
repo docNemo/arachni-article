@@ -2,7 +2,7 @@ name: Clean OS
 
 on:
   pull_request:
-    branches: [ "master", "develop" ]
+    branches: [ "develop" ]
     types: [ closed ]
 
 env:

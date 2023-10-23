@@ -87,21 +87,6 @@ objects:
     status:
       loadBalancer: { }
 
-  - kind: Route
-    apiVersion: route.openshift.io/v1
-    metadata:
-      name: ${APPLICATION_NAME}
-      labels:
-        app: ${APPLICATION_NAME}
-    spec:
-      host: ${APPLICATION_NAME}.${OS_ROUTE}
-      to:
-        kind: Service
-        name: ${APPLICATION_NAME}
-        weight: 100
-      port:
-        targetPort: ${{HOST_PORT}}
-
 parameters:
   - name: APPLICATION_NAME
     required: true

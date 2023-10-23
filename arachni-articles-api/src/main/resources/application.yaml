@@ -24,5 +24,5 @@ spring:
     enabled: 'false'
 
 object-storage:
-  host: http://arachni-storage-controller-devslaves-971395:8080/api
+  host: http://arachni-storage-controller-develop:8080/api
   objectsUrl: ${object-storage.host}/objects

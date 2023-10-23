@@ -65,7 +65,7 @@ jobs:
         if: env.BRANCH == 'develop' || startsWith(env.BRANCH, 'feature')
         run: |
           echo "CD_MODE=dev" >> $GITHUB_ENV
-          echo "APPLICATION_NAME=${{ env.BASE_APPLICATION_NAME }}-${{ steps.meta.outputs.version }}" >> $GITHUB_ENV
+          echo "APPLICATION_NAME=${{ env.BASE_APPLICATION_NAME }}-${{ env.VERSION }}" >> $GITHUB_ENV
           echo "OS_PROJECT=arachni-back-dev" >> $GITHUB_ENV
           echo "APP_TEMPLATE=DeploymentConfig.yml" >> $GITHUB_ENV
           echo "ROUTE_TEMPLATE=Route.yml" >> $GITHUB_ENV

@@ -119,7 +119,7 @@ jobs:
           docker build --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} . -f ${{ env.DOCKERFILE }}
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           clear_sha=$(docker images --digests | grep ${{ steps.meta.outputs.version }} | awk '{print $3}')
-          echo "::set-output name=sha::$clear_sha"
+          echo "IMAGE_SHA=$clear_sha" >> $GITHUB_ENV
 
       # DEPLOY
       - name: ZeroTier
@@ -166,7 +166,7 @@ jobs:
           -p APPLICATION_NAME=${{ env.APPLICATION_NAME }} \
           -p HOST_PORT=${{ env.HOST_PORT }} \
           -p IMAGE=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} \
-          -p IMAGE_SHA=${{ steps.build-and-push.outputs.sha }} \
+          -p IMAGE_SHA=${{ env.IMAGE_SHA }} \
           -p OS_ROUTE=${{ env.OS_ROUTE }} | oc apply -f -
 
       - name: Deploy Route to OS

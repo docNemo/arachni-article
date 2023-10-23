@@ -67,7 +67,7 @@ jobs:
           echo "::set-output name=tags::${{ env.IMAGE_NAME }}:${{ steps.branch.outputs._1 || steps.branch.outputs._0 }}"
 
       - name: Set Dev env
-        if: env.BRANCH == 'develop' or env.BRANCH == 'feature'
+        if: env.BRANCH == 'develop' || env.BRANCH == 'feature'
         run: |
           echo "CD_MODE=dev" >> $GITHUB_ENV
           echo "APPLICATION_NAME=${{ env.BASE_APPLICATION_NAME }}-${{ steps.meta.outputs.version }}" >> $GITHUB_ENV

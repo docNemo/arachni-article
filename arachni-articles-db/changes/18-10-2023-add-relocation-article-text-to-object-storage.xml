@@ -70,4 +70,10 @@
         <dropColumn tableName="articles" columnName="text"/>
     </changeSet>
 
+    <changeSet author="vsurubkov" id="18-10-2023-articles-drop-table-temp-articles-text">
+        <preConditions onFail="MARK_RAN">
+                <tableExists tableName="temp_article_texts"/>
+        </preConditions>
+        <dropTable tableName="temp_article_texts"/>
+    </changeSet>
 </databaseChangeLog>

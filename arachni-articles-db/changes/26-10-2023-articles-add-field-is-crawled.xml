@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone='no'?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet author="vsurubkov" id="26-10-2023-add-field-is-crawled">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="articles"/>
+                <not>
+                    <columnExists tableName="articles" columnName="is_crawled"/>
+                </not>
+            </and>
+        </preConditions>
+
+        <addColumn tableName="articles">
+            <column name="is_crawled" type="boolean"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="vsurubkov" id="26-10-2023-set-values-in-is-crawled">
+        <preConditions onFail="MARK_RAN">
+                <not>
+                    <uniqueConstraintExists tableName="articles" columnNames="is_crawled"/>
+                </not>
+        </preConditions>
+
+        <sql>
+            update articles
+            set is_crawled=true;
+        </sql>
+    </changeSet>
+
+    <changeSet author="vsurubkov" id="26-10-2023-add-not-nullable-constraint-for-is-crawled">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <uniqueConstraintExists tableName="articles" columnNames="is_crawled"/>
+            </not>
+        </preConditions>
+
+        <addNotNullConstraint tableName="articles" columnName="is_crawled"/>
+    </changeSet>
+</databaseChangeLog>

@@ -22,4 +22,6 @@ public class ArticleResponse {
     private String fileName;
 
     private String text;
+
+    private boolean isCrawled;
 }

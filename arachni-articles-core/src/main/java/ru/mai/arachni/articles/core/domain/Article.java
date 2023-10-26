@@ -50,4 +50,7 @@ public class Article {
 
     @Column(name = "file_name")
     private String fileName;
+
+    @Column(name = "is_crawled")
+    private boolean isCrawled;
 }

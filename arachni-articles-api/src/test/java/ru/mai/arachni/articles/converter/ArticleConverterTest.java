@@ -30,6 +30,7 @@ public class ArticleConverterTest {
         final List<String> strCategories = List.of("Категория 1", "Категория 2");
         final ZonedDateTime dateTime = ZonedDateTime.now();
         final String fileName = "файлик";
+        final boolean isCrawled = true;
 
         articleConverter = new ArticleConverter();
 
@@ -46,7 +47,8 @@ public class ArticleConverterTest {
                 categories,
                 creator,
                 dateTime,
-                fileName
+                fileName,
+                isCrawled
         );
 
         expectedArticleResponse = new ArticleResponse(
@@ -56,7 +58,8 @@ public class ArticleConverterTest {
                 strCreator,
                 dateTime,
                 fileName,
-                text
+                text,
+                isCrawled
         );
 
         expectedArticlePreviewResponse = new ArticlePreviewResponse(
@@ -65,7 +68,8 @@ public class ArticleConverterTest {
                 strCategories,
                 strCreator,
                 dateTime,
-                fileName
+                fileName,
+                isCrawled
         );
     }
 

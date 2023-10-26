@@ -15,4 +15,5 @@ public class ArticlePreviewResponse {
     private String creator;
     private ZonedDateTime creationDate;
     private String fileName;
+    private boolean isCrawled;
 }

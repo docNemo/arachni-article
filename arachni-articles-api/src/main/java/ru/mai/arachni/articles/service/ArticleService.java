@@ -221,6 +221,7 @@ public class ArticleService {
         String fileName = UUID.randomUUID().toString();
         article.setFileName(fileName);
         article.setCreationDate(ZonedDateTime.now());
+        article.setCrawled(false);
 
         Article recordedArticle = articleRepository.save(article);
 

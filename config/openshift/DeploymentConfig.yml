@@ -64,7 +64,7 @@ objects:
                   value: ${APPLICATION_NAME}
                 - name: JAVA_OPTS
                   value: |
-                    -Ddatabase.password=${DATABASE_PASSWORD}'
+                    -Ddatabase.password=${DATABASE_PASSWORD}
                     -Dobject-storage.host=${OBJECT_STORAGE_HOST}
                     -Ddatabase.host=${DATABASE_HOST}
                 - name: DATABASE_PASSWORD

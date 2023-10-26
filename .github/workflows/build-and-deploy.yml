@@ -186,6 +186,8 @@ jobs:
           -p HOST_PORT=${{ env.HOST_PORT }} \
           -p INGRESS_APP=${{ env.INGRESS_APP }} \
           -p INGRESS_HOST=${{ env.INGRESS_HOST }} \
+          -p OBJECT_STORAGE_HOST=${{ env.OBJECT_STORAGE_HOST }} \
+          -p DATABASE_HOST=${{ env.DATABASE_HOST }} \
           -p OS_ROUTE=${{ env.OS_ROUTE }} | oc apply -f -
 
       - name: Delete completed deploy pods

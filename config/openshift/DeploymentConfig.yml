@@ -66,6 +66,7 @@ objects:
                   value: |
                     -Ddatabase.password=${DATABASE_PASSWORD}'
                     -Dobject-storage.host=${OBJECT_STORAGE_HOST}
+                    -Ddatabase.host=${DATABASE_HOST}
                 - name: DATABASE_PASSWORD
                   valueFrom:
                     secretKeyRef:
@@ -114,4 +115,6 @@ parameters:
     required: true
     value: '500Mi'
   - name: OBJECT_STORAGE_HOST
+    required: true
+  - name: DATABASE_HOST
     required: true

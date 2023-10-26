@@ -63,7 +63,9 @@ objects:
                 - name: APPLICATION_NAME
                   value: ${APPLICATION_NAME}
                 - name: JAVA_OPTS
-                  value: '-Ddatabase.password=${DATABASE_PASSWORD}'
+                  value: |
+                    -Ddatabase.password=${DATABASE_PASSWORD}'
+                    -Dobject-storage.host=${OBJECT_STORAGE_HOST}
                 - name: DATABASE_PASSWORD
                   valueFrom:
                     secretKeyRef:
@@ -111,3 +113,5 @@ parameters:
   - name: REQUESTS_MEMORY
     required: true
     value: '500Mi'
+  - name: OBJECT_STORAGE_HOST
+    required: true

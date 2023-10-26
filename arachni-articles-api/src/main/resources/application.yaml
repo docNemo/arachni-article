@@ -14,11 +14,14 @@ springdoc:
     disable-swagger-default-url: 'true'
     path: '/swagger-ui'
 
+database:
+  host: postgres-lab-1.neo:5432
+
 spring:
   datasource:
     password: ${database.password}
     driver-class-name: org.postgresql.Driver
-    jdbcUrl: jdbc:postgresql://postgres-lab-1.neo:5432/arachni
+    jdbcUrl: jdbc:postgresql://${database.host}/arachni
     username: app_tuz
   liquibase:
     enabled: 'false'

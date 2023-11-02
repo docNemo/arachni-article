@@ -38,6 +38,10 @@ public enum ArachniError {
     INVALID_PAGINATION_PARAMETER(
             "Некорректные параметры пагинации",
             HttpStatus.BAD_REQUEST
+    ),
+    PROHIBITED_CORRECTION(
+            "Данное изменение статьи нельзя выполнить",
+            HttpStatus.BAD_REQUEST
     );
 
     private final String errorMessage;

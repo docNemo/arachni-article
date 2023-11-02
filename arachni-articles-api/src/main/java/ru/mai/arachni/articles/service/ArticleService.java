@@ -92,6 +92,26 @@ public class ArticleService {
         article.setTitle(updateArticleRequest.getTitle());
         setCategoriesToArticle(article, updateArticleRequest.getCategories());
 
+        if (Objects.nonNull(updateArticleRequest.getCreationDate())) {
+            if (article.isCrawled()) {
+                throw new ArachniException(
+                        ArachniError.PROHIBITED_CORRECTION,
+                        ""
+                );
+            }
+            article.setCreationDate(updateArticleRequest.getCreationDate());
+        }
+
+        if (StringUtils.hasText(updateArticleRequest.getCreator())) {
+            if (article.isCrawled()) {
+                throw new ArachniException(
+                        ArachniError.PROHIBITED_CORRECTION,
+                        ""
+                );
+            }
+            setCreatorToArticle(article, updateArticleRequest.getCreator());
+        }
+
         Article recordedArticle = articleRepository.save(article);
 
         TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {

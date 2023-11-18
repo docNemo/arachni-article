@@ -20,7 +20,8 @@ public class ArticleConverter {
                 article.getCreator().getCreator(),
                 article.getCreationDate(),
                 article.getFileName(),
-                text
+                text,
+                article.isCrawled()
         );
     }
 
@@ -35,7 +36,8 @@ public class ArticleConverter {
                         .collect(Collectors.toList()),
                 article.getCreator().getCreator(),
                 article.getCreationDate(),
-                article.getFileName()
+                article.getFileName(),
+                article.isCrawled()
         );
     }
 }

@@ -5,7 +5,9 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Data
@@ -20,4 +22,9 @@ public class UpdateArticleRequest {
 
     @NotBlank
     private String text;
+
+    private String creator;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private ZonedDateTime creationDate;
 }

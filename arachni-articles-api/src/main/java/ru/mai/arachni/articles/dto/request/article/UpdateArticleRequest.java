@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -26,5 +26,5 @@ public class UpdateArticleRequest {
     private String creator;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private ZonedDateTime creationDate;
+    private LocalDateTime creationDate;
 }

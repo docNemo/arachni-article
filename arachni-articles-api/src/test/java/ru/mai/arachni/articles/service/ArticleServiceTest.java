@@ -25,7 +25,7 @@
 //import ru.mai.arachni.articles.core.repository.CreatorRepository;
 //import ru.mai.arachni.articles.core.repository.pagerequest.OffsetBasedPageRequest;
 //
-//import java.time.ZonedDateTime;
+//import java.time.LocalDateTime;
 //import java.util.List;
 //import java.util.Optional;
 //
@@ -49,7 +49,7 @@
 //    private static final List<Long> ID_CATEGORIES = List.of(0L, 1L);
 //    private static final List<String> STR_CATEGORIES_1 = List.of("Категория 1", "Категория 2");
 //    private static final List<String> STR_CATEGORIES_2 = List.of("Категория 2", "Категория 3");
-//    private static final ZonedDateTime DATE_TIME = ZonedDateTime.now();
+//    private static final LocalDateTime DATE_TIME = LocalDateTime.now();
 //
 //    private ArticleRepository articleRepository;
 //    private CreatorRepository creatorRepository;

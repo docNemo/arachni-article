@@ -8,7 +8,7 @@ import ru.mai.arachni.articles.core.domain.Article;
 import ru.mai.arachni.articles.core.domain.Category;
 import ru.mai.arachni.articles.core.domain.Creator;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,7 +28,7 @@ public class ArticleConverterTest {
         final String text = "Это какой-то случайный текст";
         final List<Long> idCategories = List.of(0L, 1L);
         final List<String> strCategories = List.of("Категория 1", "Категория 2");
-        final ZonedDateTime dateTime = ZonedDateTime.now();
+        final LocalDateTime dateTime = LocalDateTime.now();
         final String fileName = "файлик";
         final boolean isCrawled = true;
 

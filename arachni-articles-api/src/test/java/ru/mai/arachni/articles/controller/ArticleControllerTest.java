@@ -22,7 +22,7 @@
 //import ru.mai.arachni.articles.configuration.ArticleConfiguration;
 //
 //import java.text.SimpleDateFormat;
-//import java.time.ZonedDateTime;
+//import java.time.LocalDateTime;
 //import java.util.List;
 //
 //import static org.mockito.Mockito.when;
@@ -41,7 +41,7 @@
 //    private static final String TITLE = "Название";
 //    private static final String TEXT = "Это какой-то случайный текст";
 //    private static final List<String> STR_CATEGORIES = List.of("Категория 1", "Категория 2");
-//    private static final ZonedDateTime DATE_TIME = ZonedDateTime.now();
+//    private static final LocalDateTime DATE_TIME = LocalDateTime.now();
 //
 //    @Autowired
 //    private MockMvc mockMvc;

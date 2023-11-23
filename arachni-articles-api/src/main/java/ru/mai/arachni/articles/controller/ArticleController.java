@@ -22,7 +22,7 @@ import ru.mai.arachni.articles.service.ArticleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -60,9 +60,9 @@ public class ArticleController {
             @RequestParam(required = false) String creator,
             @RequestParam(required = false) List<String> categories,
             @RequestParam(required = false)
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) ZonedDateTime startDate,
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam(required = false)
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) ZonedDateTime finishDate
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate finishDate
     ) {
 
         ArticleListRequest articleListRequest = ArticleListRequest.builder()

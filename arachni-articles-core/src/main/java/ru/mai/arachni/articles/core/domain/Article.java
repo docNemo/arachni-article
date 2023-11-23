@@ -16,7 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -46,7 +46,7 @@ public class Article {
     private Creator creator;
 
     @Column(name = "creation_date")
-    private ZonedDateTime creationDate;
+    private LocalDateTime creationDate;
 
     @Column(name = "file_name")
     private String fileName;

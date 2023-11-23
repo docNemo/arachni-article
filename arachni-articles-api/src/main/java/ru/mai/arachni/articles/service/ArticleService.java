@@ -27,7 +27,7 @@ import ru.mai.arachni.articles.core.repository.pagerequest.OffsetBasedPageReques
 import ru.mai.arachni.articles.core.specification.ArticleSpecification;
 import ru.mai.arachni.articles.objectstorage.service.ObjectStorageService;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -240,7 +240,7 @@ public class ArticleService {
 
         String fileName = UUID.randomUUID().toString();
         article.setFileName(fileName);
-        article.setCreationDate(ZonedDateTime.now());
+        article.setCreationDate(LocalDateTime.now());
         article.setCrawled(false);
 
         Article recordedArticle = articleRepository.save(article);

@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
 import ru.mai.arachni.articles.dto.request.PaginationRequest;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
@@ -15,6 +15,6 @@ public class ArticleListRequest extends PaginationRequest {
     private ArticleSortingParameter sortBy;
     private String creator;
     private List<String> categories;
-    private ZonedDateTime startDate;
-    private ZonedDateTime finishDate;
+    private LocalDate startDate;
+    private LocalDate finishDate;
 }

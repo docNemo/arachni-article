@@ -9,6 +9,8 @@ import ru.mai.arachni.articles.objectstorage.dto.response.UploadFileResponse;
 import ru.mai.arachni.articles.objectstorage.exception.ArachniObjectStorageError;
 import ru.mai.arachni.articles.objectstorage.exception.ArachniObjectStorageException;
 
+import java.util.Base64;
+
 @RequiredArgsConstructor
 public class ObjectStorageProvider {
     private final String objectsUrl;
@@ -35,7 +37,13 @@ public class ObjectStorageProvider {
 
     public String downloadArticleText(String fileName) {
         try {
-            return restTemplate.getForObject(objectsUrl + "/" + fileName, String.class);
+            return new String(
+                    Base64
+                            .getDecoder()
+                            .decode(
+                                    restTemplate.getForObject(objectsUrl + "/" + fileName, String.class)
+                            )
+            );
         } catch (ResourceAccessException | HttpStatusCodeException e) {
             throw new ArachniObjectStorageException(
                     ArachniObjectStorageError.FAILED_DOWNLOAD_OBJECT,

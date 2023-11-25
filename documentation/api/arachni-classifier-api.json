@@ -1,120 +1,59 @@
 {
-    "openapi": "3.0.1",
-    "info": {
-        "title": "OpenAPI definition",
-        "version": "v0"
-    },
-    "paths": {
-        "/classifier/accordingUniverses": {
-            "post": {
-                "tags": [
-                    "classifier-controller"
-                ],
-                "operationId": "classifyAccordingUniverses",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ClassifyRequest"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "*/*": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ArachniErrorRepresentation"
-                                }
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "*/*": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ClassifyResponse"
-                                }
-                            }
-                        }
-                    }
-                }
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "paths": {
+    "/classifier/category": {
+      "post": {
+        "tags": [
+          "classifier-controller"
+        ],
+        "operationId": "getClassifiedCategory",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoryClassifierRequest"
+              }
             }
+          },
+          "required": true
         },
-        "/classifier/accordingCorpus": {
-            "post": {
-                "tags": [
-                    "classifier-controller"
-                ],
-                "operationId": "classifyAccordingCorpusSavedArticle",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ClassifyRequest"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "*/*": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ArachniErrorRepresentation"
-                                }
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "*/*": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ClassifyResponse"
-                                }
-                            }
-                        }
-                    }
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryClassifierResponse"
                 }
+              }
             }
+          }
         }
-    },
-    "components": {
-        "schemas": {
-            "ArachniErrorRepresentation": {
-                "type": "object",
-                "properties": {
-                    "errorCode": {
-                        "type": "string"
-                    },
-                    "message": {
-                        "type": "string"
-                    }
-                }
-            },
-            "ClassifyRequest": {
-                "type": "object",
-                "properties": {
-                    "text": {
-                        "type": "string"
-                    }
-                }
-            },
-            "ClassifyResponse": {
-                "type": "object",
-                "properties": {
-                    "classificationResult": {
-                        "type": "string"
-                    }
-                }
-            }
-        }
+      }
     }
+  },
+  "components": {
+    "schemas": {
+      "CategoryClassifierRequest": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          }
+        }
+      },
+      "CategoryClassifierResponse": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
 }

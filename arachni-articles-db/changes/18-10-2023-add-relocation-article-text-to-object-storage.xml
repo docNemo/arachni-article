@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone='no'?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet author="vsurubkov" id="18-10-2023-articles-add-table-temp-articles-text">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="temp_article_texts"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="temp_article_texts">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_temp_article_texts"/>
+            </column>
+            <column name="file_name" type="nvarchar(36)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="text" type="text">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="vsurubkov" id="18-10-2023-articles-add-column-file-name-to-articles">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="articles"/>
+                <not>
+                    <columnExists tableName="articles" columnName="file_name"/>
+                </not>
+            </and>
+        </preConditions>
+
+        <addColumn tableName="articles">
+            <column name="file_name" type="nvarchar(36)">
+                <constraints unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="vsurubkov" id="18-10-2023-articles-transfer-text-to-temp-table">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="articles" columnName="text"/>
+        </preConditions>
+
+        <sql>
+            update articles set file_name=gen_random_uuid();
+            with texts as (select articles.text, articles.file_name from articles)
+            insert into temp_article_texts (file_name, text) select file_name, text from texts;
+        </sql>
+    </changeSet>
+
+    <changeSet author="vsurubkov" id="18-10-2023-temp-text-add-not-null-constraint">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="articles" columnName="file_name"/>
+        </preConditions>
+
+        <addNotNullConstraint tableName="articles" columnName="file_name"/>
+    </changeSet>
+
+    <changeSet author="vsurubkov" id="18-10-2023-articles-drop-text">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="articles" columnName="text"/>
+        </preConditions>
+
+        <dropColumn tableName="articles" columnName="text"/>
+    </changeSet>
+
+    <changeSet author="vsurubkov" id="18-10-2023-articles-drop-table-temp-articles-text">
+        <preConditions onFail="MARK_RAN">
+                <tableExists tableName="temp_article_texts"/>
+        </preConditions>
+        <dropTable tableName="temp_article_texts"/>
+    </changeSet>
+</databaseChangeLog>

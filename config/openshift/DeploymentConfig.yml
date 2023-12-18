@@ -2,7 +2,6 @@ apiVersion: template.openshift.io/v1
 kind: Template
 metadata:
   name: ${APPLICATION_NAME}-template
-  app: ${APPLICATION_NAME}
 labels:
   template: ${APPLICATION_NAME}-template
   app: ${APPLICATION_NAME}
@@ -34,6 +33,8 @@ objects:
           labels:
             app: ${APPLICATION_NAME}
             deploymentConfig: ${APPLICATION_NAME}
+          annotations:
+            sidecar.istio.io/inject: 'true'
         spec:
           restartPolicy: Always
           serviceAccountName: builder
@@ -62,7 +63,10 @@ objects:
                 - name: APPLICATION_NAME
                   value: ${APPLICATION_NAME}
                 - name: JAVA_OPTS
-                  value: '-Ddatabase.password=${DATABASE_PASSWORD}'
+                  value: |
+                    -Ddatabase.password=${DATABASE_PASSWORD}
+                    -Dobject-storage.host=${OBJECT_STORAGE_HOST}
+                    -Ddatabase.host=${DATABASE_HOST}
                 - name: DATABASE_PASSWORD
                   valueFrom:
                     secretKeyRef:
@@ -85,43 +89,32 @@ objects:
       type: ClusterIP
       sessionAffinity: None
     status:
-      loadBalancer: {}
-
-  - kind: Route
-    apiVersion: route.openshift.io/v1
-    metadata:
-      name: ${APPLICATION_NAME}
-      labels:
-        app: ${APPLICATION_NAME}
-    spec:
-      host: ${APPLICATION_NAME}.${OS_ROUTE}
-      to:
-        kind: Service
-        name: ${APPLICATION_NAME}
-        weight: 100
-      port:
-        targetPort: ${{HOST_PORT}}
+      loadBalancer: { }
 
 parameters:
   - name: APPLICATION_NAME
     required: true
-  - name:   IMAGE
+  - name: IMAGE
     required: true
-  - name:   IMAGE_SHA
+  - name: IMAGE_SHA
     required: true
-  - name:   HOST_PORT
+  - name: HOST_PORT
     required: true
-  - name:   OS_ROUTE
+  - name: OS_ROUTE
     required: true
-  - name:   LIMITS_CPU
-    required: true
-    value: '1'
-  - name:   LIMITS_MEMORY
-    required: true
-    value: '500Mi'
-  - name:   REQUESTS_CPU
+  - name: LIMITS_CPU
     required: true
     value: '1'
-  - name:   REQUESTS_MEMORY
+  - name: LIMITS_MEMORY
     required: true
     value: '500Mi'
+  - name: REQUESTS_CPU
+    required: true
+    value: '1'
+  - name: REQUESTS_MEMORY
+    required: true
+    value: '500Mi'
+  - name: OBJECT_STORAGE_HOST
+    required: true
+  - name: DATABASE_HOST
+    required: true
